@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fine Wines Business Intelligence</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🍷</div>
+        <div>
+          <h1>Fine Wines BI</h1>
+          <p>Sales intelligence dashboard</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#executive" class="active">Executive</a>
+        <a href="#groups">Product Groups</a>
+        <a href="#types">Product Types</a>
+        <a href="#countries">Countries</a>
+        <a href="#departments">Departments</a>
+        <a href="#products">Products</a>
+        <a href="#opportunities">Opportunities</a>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Upload files</strong>
+        <span>Group sales overall 2024 + 2025</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Fine Wines Business Intelligence</p>
+          <h2>Sales Dashboard</h2>
+          <p>Compare all product sales across 2024 vs 2025 before adding Christmas and store modules.</p>
+        </div>
+        <div class="hero-actions">
+          <button id="demoBtn" class="secondary">Load sample view</button>
+          <button id="resetBtn" class="secondary">Reset</button>
+        </div>
+      </header>
+
+      <section class="upload-card" id="upload">
+        <div class="upload-zone" id="dropZone">
+          <input id="fileInput" type="file" multiple accept=".xlsx,.xls,.csv" />
+          <div>
+            <h3>Drop Excel files here or choose files</h3>
+            <p>Required: <b>Group sales overall 2024.xlsx</b> and <b>Group sales overall 2025.xlsx</b></p>
+            <p class="muted">Columns used: A, B, C, D, E, G, I, L, M, Z, AA, AB, AE</p>
+          </div>
+        </div>
+        <div class="upload-actions">
+          <button id="buildBtn">Build Dashboard</button>
+          <button id="exportBtn" class="secondary" disabled>Export Summary CSV</button>
+        </div>
+        <div id="status" class="status">Waiting for files.</div>
+      </section>
+
+      <section id="executive" class="section">
+        <div class="section-heading">
+          <h3>Executive Dashboard</h3>
+          <p>Top-level business performance across all products.</p>
+        </div>
+        <div class="kpi-grid" id="kpiGrid"></div>
+      </section>
+
+      <section class="toolbar">
+        <input id="searchInput" type="search" placeholder="Search SKU or description..." />
+        <select id="groupFilter"><option value="">All Product Groups</option></select>
+        <select id="typeFilter"><option value="">All Product Types</option></select>
+        <select id="countryFilter"><option value="">All Countries</option></select>
+        <select id="departmentFilter"><option value="">All Departments</option></select>
+      </section>
+
+      <section class="dashboard-grid">
+        <article id="groups" class="panel">
+          <div class="panel-head"><h3>Product Group Performance</h3><span>2025 sales vs 2024</span></div>
+          <div id="groupChart" class="bar-chart"></div>
+        </article>
+        <article id="types" class="panel">
+          <div class="panel-head"><h3>Product Type Performance</h3><span>Top categories</span></div>
+          <div id="typeChart" class="bar-chart"></div>
+        </article>
+        <article id="countries" class="panel">
+          <div class="panel-head"><h3>Country Performance</h3><span>Sales by country</span></div>
+          <div id="countryChart" class="bar-chart"></div>
+        </article>
+        <article id="departments" class="panel">
+          <div class="panel-head"><h3>Department Performance</h3><span>Sales by department</span></div>
+          <div id="departmentChart" class="bar-chart"></div>
+        </article>
+      </section>
+
+      <section id="products" class="section two-col">
+        <article class="panel">
+          <div class="panel-head"><h3>Biggest Winners</h3><span>Highest sales growth</span></div>
+          <div id="winnersList" class="rank-list"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><h3>Biggest Decliners</h3><span>Largest sales decline</span></div>
+          <div id="declinersList" class="rank-list"></div>
+        </article>
+      </section>
+
+      <section id="opportunities" class="section">
+        <div class="section-heading">
+          <h3>All Products</h3>
+          <p>Full product comparison table. Filter, search and sort by sales, volume, profit and growth.</p>
+        </div>
+        <div class="table-wrap">
+          <table id="productsTable">
+            <thead>
+              <tr>
+                <th>SKU</th><th>Description</th><th>Group</th><th>Type</th><th>Country</th><th>Department</th>
+                <th>2024 Sales</th><th>2025 Sales</th><th>Growth €</th><th>Growth %</th>
+                <th>2024 Qty</th><th>2025 Qty</th><th>Qty Growth</th><th>2025 GP</th><th>2025 GP%</th><th>2025 Cases</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/excel.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
